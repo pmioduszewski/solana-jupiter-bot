@@ -154,10 +154,30 @@ const successSwapHandler = (tx, tradeEntry, tokenA, tokenB) => {
 		? tx.outputAmount
 		: cache.currentBalance[cache.sideBuy ? "tokenB" : "tokenA"];
 
-	cache.currentBalance[cache.sideBuy ? "tokenB" : "tokenA"] = tx.outputAmount;
+	// clear current balance of inputToken
+	if (cache.sideBuy) {
+		cache.lastBalance.tokenA = cache.currentBalance.tokenA;
+		cache.currentBalance.tokenA = 0;
+		cache.currentBalance.tokenB = tx.outputAmount;
+	} else {
+		cache.lastBalance.tokenB = cache.currentBalance.tokenB;
+		cache.currentBalance.tokenB = 0;
+		cache.currentBalance.tokenA = tx.outputAmount;
+	}
 
-	tradeEntry.inAmount = tx.inputAmount;
-	tradeEntry.outAmount = tx.outputAmount;
+	if (cache.firstSwap) {
+		cache.lastBalance.tokenB = tx.outputAmount;
+		cache.initialBalance.tokenB = tx.outputAmount;
+	}
+
+	tradeEntry.inAmount = toDecimal(
+		tx.inputAmount,
+		cache.sideBuy ? tokenA.decimals : tokenB.decimals
+	);
+	tradeEntry.outAmount = toDecimal(
+		tx.outputAmount,
+		cache.sideBuy ? tokenB.decimals : tokenA.decimals
+	);
 
 	// calculate profit
 
