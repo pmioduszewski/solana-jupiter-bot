@@ -257,7 +257,9 @@ const pingpongMode = async (jupiter, tokenA, tokenB) => {
 		// update slippage with "profit or kill" slippage
 		const profitOrKillSlippage = cache.firstSwap
 			? route.outAmountWithSlippage
-			: cache.lastBalance[cache.sideBuy ? "tokenB" : "tokenA"] * 1.01; // 1%
+			: cache.lastBalance[cache.sideBuy ? "tokenB" : "tokenA"];
+
+		route.outAmountWithSlippage = profitOrKillSlippage;
 
 		// calculate profitability
 
@@ -704,7 +706,11 @@ function printToConsole(
 					`${config.tradeSize} ${inputToken.symbol}`
 				)}`,
 			},
-			{ text: `` }
+			{
+				text: `SLIPPAGE: ${chalk.magentaBright(
+					toDecimal(route.outAmountWithSlippage, outputToken.decimals)
+				)}`,
+			}
 		);
 
 		ui.div(" ");
