@@ -150,9 +150,6 @@ const successSwapHandler = (tx, tradeEntry, tokenA, tokenB) => {
 	cache.tradeCounter[cache.sideBuy ? "buy" : "sell"].success++;
 
 	// update balance
-	cache.lastBalance[cache.sideBuy ? "tokenB" : "tokenA"] = cache.firstSwap
-		? tx.outputAmount
-		: cache.currentBalance[cache.sideBuy ? "tokenB" : "tokenA"];
 
 	// clear current balance of inputToken
 	if (cache.sideBuy) {
@@ -712,7 +709,7 @@ function printToConsole(
 
 		ui.div(" ");
 
-		ui.div("CURRENT BALANCE", "LAST BALANCE", " ", " ");
+		ui.div("CURRENT BALANCE", "LAST BALANCE", "INIT BALANCE", "PROFIT", " ");
 
 		ui.div(
 			`${chalk.yellowBright(
@@ -723,7 +720,11 @@ function printToConsole(
 				toDecimal(cache.lastBalance.tokenA, tokenA.decimals)
 			)} ${chalk[cache.ui.defaultColor](tokenA.symbol)}`,
 
-			`PROFIT: ${chalk[cache.currentProfit.tokenA > 0 ? "greenBright" : "red"](
+			`${chalk.yellowBright(
+				toDecimal(cache.initialBalance.tokenA, tokenA.decimals)
+			)} ${chalk[cache.ui.defaultColor](tokenA.symbol)}`,
+
+			`${chalk[cache.currentProfit.tokenA > 0 ? "greenBright" : "redBright"](
 				cache.currentProfit.tokenA.toFixed(2)
 			)} %`,
 			" "
@@ -738,8 +739,12 @@ function printToConsole(
 				toDecimal(cache.lastBalance.tokenB, tokenB.decimals)
 			)} ${chalk[cache.ui.defaultColor](tokenB.symbol)}`,
 
-			`PROFIT: ${chalk[cache.currentProfit.tokenB > 0 ? "greenBright" : "red"](
-				cache.currentProfit.tokenA.toFixed(2)
+			`${chalk.yellowBright(
+				toDecimal(cache.initialBalance.tokenB, tokenB.decimals)
+			)} ${chalk[cache.ui.defaultColor](tokenB.symbol)}`,
+
+			`${chalk[cache.currentProfit.tokenB > 0 ? "greenBright" : "redBright"](
+				cache.currentProfit.tokenB.toFixed(2)
 			)} %`,
 			" "
 		);
