@@ -40,9 +40,7 @@ const cache = {
 		tokenA: 0,
 		tokenB: 0,
 	},
-	initialBalance: {
-		tokenA: 0,
-	},
+
 	currentBalance: {
 		tokenA: 0,
 		tokenB: 0,
