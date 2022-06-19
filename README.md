@@ -2,6 +2,9 @@
 
 > CAUTION! Use at Your own risk! I take no responsibility for your transactions!
 
+![](https://github.com/pmioduszewski/solana-jupiter-bot/blob/main/gif1.gif)
+![](https://github.com/pmioduszewski/solana-jupiter-bot/blob/main/gif2.gif)
+
 ## Install
 
 ```bash
