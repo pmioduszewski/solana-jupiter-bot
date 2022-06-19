@@ -311,12 +311,12 @@ const pingpongMode = async (jupiter, tokenA, tokenB) => {
 				cache.swappingRightNow = true;
 				// store trade to the history
 				let tradeEntry = {
-					date: date,
+					date: date.toLocaleString(),
 					buy: cache.sideBuy,
 					inputToken: inputToken.symbol,
 					outputToken: outputToken.symbol,
-					inAmount: route.inAmount,
-					expectedOutAmount: route.outAmount,
+					inAmount: toDecimal(route.inAmount, inputToken.decimals),
+					expectedOutAmount: toDecimal(route.outAmount, outputToken.decimals),
 					expectedProfit: simulatedProfit,
 				};
 
@@ -352,7 +352,7 @@ const pingpongMode = async (jupiter, tokenA, tokenB) => {
 
 				tradeEntry = {
 					...tradeEntry,
-					outAmount: tx.outputAmount,
+					outAmount: tx.outputAmount || 0,
 					profit,
 					performanceOfTx,
 					error: tx.error?.message || null,
@@ -789,8 +789,42 @@ function printToConsole(
 				{ text: `IN` },
 				{ text: `OUT` },
 				{ text: `PROFIT` },
+				{ text: `EXP. OUT` },
+				{ text: `EXP. PROFIT` },
 				{ text: `ERROR` }
 			);
+
+			ui.div(" ");
+
+			if (cache?.tradeHistory?.length > 0) {
+				const tableData = [...cache.tradeHistory].slice(-5);
+				tableData.map((entry, i) =>
+					ui.div(
+						{ text: `${entry.date}`, border: true },
+						{ text: `${entry.buy ? "BUY" : "SELL"}`, border: true },
+						{ text: `${entry.inAmount} ${entry.inputToken}`, border: true },
+						{ text: `${entry.outAmount} ${entry.outputToken}`, border: true },
+						{
+							text: `${entry.profit > 0 ? entry.profit : "-"} ${
+								entry.outputToken
+							}`,
+							border: true,
+						},
+						{
+							text: `${entry.expectedOutAmount} ${entry.inputToken}`,
+							border: true,
+						},
+						{
+							text: `${entry.expectedProfit.toFixed(2)} ${entry.inputToken}`,
+							border: true,
+						},
+						{
+							text: `${entry.error ? chalk.bold.redBright(entry.error) : "-"}`,
+							border: true,
+						}
+					)
+				);
+			}
 		}
 		ui.div("");
 		console.log(ui.toString());
