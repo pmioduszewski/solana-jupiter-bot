@@ -87,7 +87,7 @@ const cache = {
 	tradingEnabled: config.tradingEnabled,
 	swappingRightNow: false,
 	tradingMode: config.tradingMode,
-	tradeHistory: [],
+	tradeHistory: new Array(),
 	performanceOfTxStart: 0,
 };
 
