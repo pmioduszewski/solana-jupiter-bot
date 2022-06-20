@@ -434,7 +434,7 @@ const run = async () => {
 		process.stdin.on("keypress", function (ch, key) {
 			// console.log('got "keypress"', key);
 			if (key && key.ctrl && key.name == "c") {
-				cache.swappingRightNow = true; // stop all trades
+				cache.tradingEnabled = false; // stop all trades
 				console.log("[CTRL] + [C] PRESS AGAIN TO EXIT!");
 				process.stdin.pause();
 				process.stdin.setRawMode(false);
