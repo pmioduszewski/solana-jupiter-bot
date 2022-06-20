@@ -2,6 +2,7 @@ const ui = require("cliui")({ width: 140 });
 const chart = require("asciichart");
 const moment = require("moment");
 const chalk = require("chalk");
+const { toDecimal } = require("./utils");
 
 function printToConsole({
 	date,
