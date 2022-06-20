@@ -324,7 +324,7 @@ function printToConsole({
 							border: true,
 						},
 						{
-							text: `${entry.expectedProfit.toFixed(2)} ${entry.inputToken}`,
+							text: `${entry.expectedProfit.toFixed(2)} %`,
 							border: true,
 						},
 						{
