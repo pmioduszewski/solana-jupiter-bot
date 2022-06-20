@@ -92,21 +92,13 @@ const cache = {
 
 const swap = async (jupiter, route) => {
 	try {
-		// console.log("SWAPPING...");
-
 		const performanceOfTxStart = performance.now();
 		cache.performanceOfTxStart = performanceOfTxStart;
-
-		// console.log("before swap", route);
 
 		const { execute } = await jupiter.exchange({
 			routeInfo: route,
 		});
 		const result = await execute();
-
-		const test = JSON.parse(JSON.stringify(result));
-		// console.log("result of swap: ", result);
-		// console.log("result of swap parsed: ", test);
 
 		const performanceOfTx = performance.now() - performanceOfTxStart;
 
@@ -117,7 +109,6 @@ const swap = async (jupiter, route) => {
 };
 
 const failedSwapHandler = (tx, tradeEntry, route) => {
-	// console.log("SWAPPING FAILED...");
 	const msg = tx.error.message;
 
 	// update counter
@@ -128,14 +119,12 @@ const failedSwapHandler = (tx, tradeEntry, route) => {
 
 	// update trade history
 	let tempHistory = cache.tradeHistory || [];
-	// console.log("tempHistory ", tempHistory);
 	tempHistory.push(tradeEntry);
-	// console.log("tempHistory ", tempHistory);
 	cache.tradeHistory = tempHistory;
-	// console.log("cache.tradeHistory ", cache.tradeHistory);
 
 	// add AMM to blockedAMMs
 	const marketInfos = JSON.parse(JSON.stringify(route.marketInfos, null, 2));
+	// TODO: add AMM to blockedAMMs if there is error called "Unknown"
 	// for (const market of marketInfos) {
 	// 	if (msg.toLowerCase().includes("unknown"))
 	// 		cache.blockedAMMs[market.amm.id] = msg;
@@ -143,14 +132,10 @@ const failedSwapHandler = (tx, tradeEntry, route) => {
 };
 
 const successSwapHandler = (tx, tradeEntry, tokenA, tokenB) => {
-	// console.log("SWAPPING SUCCESS...");
-
 	// update counter
 	cache.tradeCounter[cache.sideBuy ? "buy" : "sell"].success++;
 
 	// update balance
-
-	// clear current balance of inputToken
 	if (cache.sideBuy) {
 		cache.lastBalance.tokenA = cache.currentBalance.tokenA;
 		cache.profit.tokenA = 0;
@@ -177,16 +162,9 @@ const successSwapHandler = (tx, tradeEntry, tokenA, tokenB) => {
 		cache.sideBuy ? tokenB.decimals : tokenA.decimals
 	);
 
-	// calculate profit
-
+	// update profit
 	const lastBalance = cache.lastBalance[cache.sideBuy ? "tokenB" : "tokenA"];
-
 	const profit = calculateProfit(lastBalance, tx.outputAmount);
-
-	console.log("lastBalance ", lastBalance);
-
-	console.log("profit ", profit);
-
 	cache.currentProfit[cache.sideBuy ? "tokenA" : "tokenB"] = profit;
 
 	// update trade history
@@ -226,9 +204,6 @@ const pingpongMode = async (jupiter, tokenA, tokenB) => {
 			: cache.currentBalance[cache.sideBuy ? "tokenA" : "tokenB"];
 		const baseAmount = cache.lastBalance[cache.sideBuy ? "tokenB" : "tokenA"];
 
-		// console.log("AMOUNT TO TRADE: ", amountToTrade);
-		// console.log("BASE AMOUNT: ", baseAmount);
-
 		// default slippage
 		const slippage = 1;
 
@@ -267,10 +242,6 @@ const pingpongMode = async (jupiter, tokenA, tokenB) => {
 		let simulatedProfit = cache.firstSwap
 			? 0
 			: calculateProfit(baseAmount, await route.outAmount);
-
-		// console.log("route.inAmount ", route.inAmount);
-		// console.log("profitOrKillSlippage ", profitOrKillSlippage);
-		// console.log("1 simulatedProfit ", simulatedProfit);
 
 		// store max profit spotted
 		if (
@@ -376,9 +347,6 @@ const pingpongMode = async (jupiter, tokenA, tokenB) => {
 				}
 			}
 		}
-
-		// save route Object in ./temp/route.json file
-		// fs.writeFileSync("./temp/route.json", JSON.stringify(route, null, 2));
 
 		if (tx) {
 			if (!tx.error) {

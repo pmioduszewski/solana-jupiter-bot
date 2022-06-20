@@ -335,14 +335,11 @@ function printToConsole({
 			}
 		}
 		ui.div("");
+
+		// print UI
 		console.log(ui.toString());
 
 		delete swapStatus;
-		// console.log("route.outAmount", route.outAmount);
-		// console.log("baseAmount ", baseAmount);
-		// console.log("simulatedProfit: ", simulatedProfit);
-		// console.log("cache.currentBalance.tokenA: ", cache.currentBalance.tokenA);
-		// console.log("cache.currentBalance.tokenB: ", cache.currentBalance.tokenB);
 	} catch (error) {
 		console.log(error);
 	}
