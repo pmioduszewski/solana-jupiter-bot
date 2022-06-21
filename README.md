@@ -2,6 +2,8 @@
 
 > CAUTION! Use at Your own risk! I take no responsibility for your transactions!
 
+> ⚠️ EPILEPSY WARNING - CLI UI is constantly refreshed and may be disruptive for sensitive ppl
+
 # WHT is this?
 
 It's a trading bot that can trade on Solana blockchain by utilizing Jupiter Agregator SDK.
