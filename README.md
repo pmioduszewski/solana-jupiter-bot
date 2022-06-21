@@ -2,6 +2,28 @@
 
 > CAUTION! Use at Your own risk! I take no responsibility for your transactions!
 
+# WHT is this?
+
+It's a trading bot that can trade on Solana blockchain by utilizing Jupiter Agregator SDK.
+There are two parts:
+
+- config wizard
+- trading bot
+
+With Config wizard You can easly setup your trading strategy.
+
+### CLI UI
+
+📊 Bot have CLI UI which helps You monitor your trading strategy.
+
+CLI UI have current simulated profit chart and latency chart. Latency chart shows You the time taken to computate routes with Jupiter SDK.
+
+All trades are stored in trades history and will be shown in the table. Table is limited to 5 entries, but history stores all trades.
+
+💡 UI elements can be hidden or shown using hotkeys (read below).
+
+> THIS README IS NOT COMPLETED YET.
+
 ![](https://github.com/pmioduszewski/solana-jupiter-bot/blob/main/gif1.gif)
 ![](https://github.com/pmioduszewski/solana-jupiter-bot/blob/main/gif2.gif)
 
@@ -59,4 +81,4 @@ While bot is running You can use some hotkeys that will change behaviour of bot 
 
 `[T]` - show/hide trade history table \*_table isn't working yet_
 
-> 🔴 This is raw init!
+`[S]` - simulation mode switch (enable/disable trading)
