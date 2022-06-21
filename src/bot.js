@@ -178,7 +178,10 @@ const successSwapHandler = (tx, tradeEntry, tokenA, tokenB) => {
 		cache.sideBuy ? tokenB.decimals : tokenA.decimals
 	);
 
-	tradeEntry.profit = cache.currentProfit[cache.sideBuy ? "tokenB" : "tokenA"];
+	tradeEntry.profit = calculateProfit(
+		cache.lastBalance[cache.sideBuy ? "tokenB" : "tokenA"],
+		tx.outputAmount
+	);
 
 	tempHistory.push(tradeEntry);
 	cache.tradeHistory = tempHistory;
