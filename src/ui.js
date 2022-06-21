@@ -64,7 +64,7 @@ function printToConsole({
 			ui.div(
 				chalk.gray("[E] - force execution"),
 				chalk.gray("[R] - revert back swap"),
-				chalk.gray(" ")
+				chalk.gray("[S] - simulation mode switch")
 			);
 			ui.div(" ");
 		}

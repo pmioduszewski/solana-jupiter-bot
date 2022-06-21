@@ -479,6 +479,11 @@ const run = async () => {
 			if (key && key.name === "h") {
 				cache.ui.showHelp = !cache.ui.showHelp;
 			}
+
+			// [S] - simulation mode switch
+			if (key && key.name === "s") {
+				cache.tradingEnabled = !cache.tradingEnabled;
+			}
 		});
 
 		process.stdin.setRawMode(true);
