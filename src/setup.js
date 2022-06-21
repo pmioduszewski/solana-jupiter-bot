@@ -3,7 +3,7 @@ const { Connection, Keypair } = require("@solana/web3.js");
 const bs58 = require("bs58");
 const fs = require("fs");
 
-const setup = async (config, tokens) => {
+const setup = async (config) => {
 	try {
 		// read tokens.json file
 		const tokens = JSON.parse(fs.readFileSync("./temp/tokens.json"));
