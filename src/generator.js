@@ -28,7 +28,7 @@ const networks = [
 
 const tradingModes = [
 	{ label: "pingpong", value: "pingpong" },
-	{ label: "arbitrage", value: "arbitrage" },
+	{ label: "arbitrage (coming soon)", value: "arbitrage" },
 ];
 
 const App = (props) => {
