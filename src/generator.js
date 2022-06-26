@@ -45,6 +45,7 @@ const App = (props) => {
 	const [tradingEnabled, setTradingEnabled] = useState(undefined);
 	const [tradeSize, setTradeSize] = useState("");
 	const [minPercProfit, setMinPercProfit] = useState("1");
+	const [isMinPercProfitSet, setIsMinPercProfitSet] = useState(false);
 	const [minInterval, setMinInterval] = useState("30");
 	const [storeFailedTxInHistory, setStoreFailedTxInHistory] = useState(true);
 	const [readyToStart, setReadyToStart] = useState(false);
@@ -293,15 +294,33 @@ const App = (props) => {
 				)}
 
 				{tokenAisSet && tokenBisSet && tradingEnabled !== undefined && (
-					<Box>
-						<Text>Trade Size: </Text>
-						<TextInput
-							value={tradeSize || ""}
-							onChange={(value) => setTradeSize(value)}
-							placeholder="example 0.10"
-							onSubmit={() => setReadyToStart(true)}
-						/>
-					</Box>
+					<>
+						<Box>
+							<Text>Min. % Profit: </Text>
+							{!isMinPercProfitSet ? (
+								<TextInput
+									value={minPercProfit || ""}
+									onChange={(value) => setMinPercProfit(value)}
+									placeholder="example 0.10"
+									onSubmit={() => setIsMinPercProfitSet(true)}
+								/>
+							) : (
+								<Text color="cyan">{minPercProfit}</Text>
+							)}
+						</Box>
+
+						{isMinPercProfitSet && (
+							<Box>
+								<Text>Trade Size: </Text>
+								<TextInput
+									value={tradeSize || ""}
+									onChange={(value) => setTradeSize(value)}
+									placeholder="example 0.10"
+									onSubmit={() => setReadyToStart(true)}
+								/>
+							</Box>
+						)}
+					</>
 				)}
 
 				<EscNotification />
