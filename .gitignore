@@ -104,7 +104,7 @@ dist
 .tern-port
 
 # temp files
-temp/
+temp/*
 /config.json
 
 # useless stuff
