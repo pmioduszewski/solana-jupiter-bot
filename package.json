@@ -36,7 +36,7 @@
 		"ink-text-input": "^4.0.3",
 		"keypress": "^0.2.1",
 		"meow": "^9.0.0",
-		"moment": "^2.29.3",
+		"moment": "^2.29.4",
 		"ora-classic": "^5.4.2",
 		"react": "^17.0.2",
 		"strip-ansi": "^7.0.1"
